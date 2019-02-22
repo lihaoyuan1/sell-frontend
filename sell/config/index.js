@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: 'http://192.168.0.109:8080',
+        target: 'http://10.1.39.33:8080',
         changeOrigin: true,
         pathRewrite: {
           '^/api': '/static/axios-data'
@@ -21,7 +21,7 @@ module.exports = {
     },
 
     // Various Dev Server settings
-    host: '192.168.0.109', // can be overwritten by process.env.HOST
+    host: '10.1.39.33', // can be overwritten by process.env.HOST
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,
