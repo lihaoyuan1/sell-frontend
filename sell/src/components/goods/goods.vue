@@ -20,7 +20,12 @@
         <li v-for="(item, index) in goods" class="food-list" :key="index">
           <h1 class="title">{{item.name}}</h1>
           <ul>
-            <li v-for="(food, index1) in item.foods" class="food-item border-1px" :key="index1">
+            <li
+              v-for="(food, index1) in item.foods"
+              class="food-item border-1px"
+              :key="index1"
+              @click="selectedFood(food)"
+            >
               <div class="icon">
                 <img width="57" height="57" :src="food.icon">
               </div>
@@ -50,6 +55,7 @@
       ref="cart"
     >
     </shop-cart>
+    <food @cartAdd="handleCartAdd" ref="food" :food="foodDetail"></food>
   </div>
 </template>
 
@@ -59,6 +65,7 @@ import Icon from '../../common/icon/icon'
 import ShopCart from './shop-cart/shop-cart'
 import CartControl from './cart-control/cart-control'
 import BScroll from 'better-scroll'
+import Food from '../food/food'
 
 export default {
   name: 'goods',
@@ -71,7 +78,8 @@ export default {
       listHeight: [],
       scrollY: 0,
       menuIndex: 0,
-      isFocusRight: true
+      isFocusRight: true,
+      foodDetail: {}
     }
   },
   computed: {
@@ -127,6 +135,10 @@ export default {
         height += item.clientHeight
         this.listHeight.push(height)
       }
+    },
+    selectedFood (food) {
+      this.foodDetail = food
+      this.$refs.food.show()
     }
   },
   watch: {
@@ -154,7 +166,7 @@ export default {
     }
   },
   created () {
-    GET('/api/goods.json').then(res => {
+    GET('/api/goods').then(res => {
       if (res.error === ERR_OK) {
         this.goods = res.data
         this.$nextTick(() => {
@@ -165,6 +177,7 @@ export default {
     })
   },
   components: {
+    Food,
     Icon,
     ShopCart,
     CartControl

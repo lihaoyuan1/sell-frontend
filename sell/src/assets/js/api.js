@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export function GET (url, data) {
   return new Promise((resolve, reject) => {
-    axios.get(url, {params: data}).then(res => {
+    axios.get(url + '.json', {params: data}).then(res => {
       resolve(res.data)
     }).catch(err => {
       reject(err)
